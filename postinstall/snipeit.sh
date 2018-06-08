@@ -41,6 +41,7 @@ spin[1]="\\"
 spin[2]="|"
 spin[3]="/"
 
+# updated access.log to be inside of httpd/ to prevent SELinux errors.
 setvhcentos () {
     apachefile=/etc/httpd/conf.d/$name.conf
     {
@@ -54,7 +55,7 @@ setvhcentos () {
         echo "    DocumentRoot $webdir/$name/public"
         echo "    ServerName $fqdn"
         echo "        ErrorLog /var/log/httpd/snipeIT.error.log"
-        echo "        CustomLog /var/log/access.log combined"
+        echo "        CustomLog /var/log/httpd/access.log combined"
         echo "</VirtualHost>"
     } >> "$apachefile"
 }
@@ -278,7 +279,7 @@ rm -f /root/snipeit.sh
 rm -f /root/snipeit.sh~
 rm -rf /root/pre_issue
 rm -rf /root/pre_issue~
-rm -rf /root/snipeit_mail.setup.sh
+rm -rf /root/snipeit_mail_setup.sh
 rm -rf /etc/issue
 rm -rf /etc/issue.net
 mv /etc/issue-backup /etc/issue
