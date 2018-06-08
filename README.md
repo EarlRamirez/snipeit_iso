@@ -1,6 +1,6 @@
 # Snipe-IT Custom ISO
 
-Snipe-IT (https://snipeitapp.com/)is the best open source web-based inventory system that is have ever used. 
+Snipe-IT (https://snipeitapp.com/) is the best open source web-based inventory system that is have ever used. 
 
 Spending some time on gitter.im/snipe/snipe-it, it was observed that most of the new comers run into a few challenges when trying to get up and running with Snipe-IT
 

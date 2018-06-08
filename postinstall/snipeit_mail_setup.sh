@@ -53,4 +53,5 @@ case $setupmail in
     *)  echo "  Invalid answer. Please type y or n"
         ;;
 esac
+# Clear configuration for the changes to take effect
 done; cd /var/www/html/snipeit/ && sudo -u apache php artisan config:clear

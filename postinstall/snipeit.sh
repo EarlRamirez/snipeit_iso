@@ -32,10 +32,9 @@ verbose="false"
 hostname="$(hostname)"
 fqdn="$(hostname --fqdn)"
 hosts=/etc/hosts
-#phpinst="sudo -u apache php"
 mysqluserpw="$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c16; echo)"
+#TODO automate root password or add it to menu 
 mysql_root_pass="snipe_Snipe-IT"
-#mysql_rootpw="abcd1234"
 
 spin[0]="-"
 spin[1]="\\"
@@ -86,7 +85,8 @@ installsnipeit () {
     echo "* Installing and running composer."
     cd "$webdir/$name/"
     curl -sS https://getcomposer.org/installer | php
-    COMPOSER_PROCESS_TIMEOUT=2000 php composer.phar install --no-dev --prefer-source
+    # Added composer_process_timeout variable for slow internet connections
+    COMPOSER_PROCESS_TIMEOUT=6000 php composer.phar install --no-dev --prefer-source
 
     echo "* Setting permissions."
     for chmod_dir in "$webdir/$name/storage" "$webdir/$name/storage/private_uploads" "$webdir/$name/public/uploads"; do
@@ -120,7 +120,7 @@ isdnfinstalled () {
         false
     fi
 }
-
+#TODO:  Duplicate with kickstart need to eliminate one 
 openfirewalld () {
     if [ "$(firewall-cmd --state)" == "running" ]; then
         echo "* Configuring firewall to allow HTTP traffic only."
@@ -207,7 +207,7 @@ echo ""
         echo "* Setting MariaDB to start on boot and starting MariaDB."
         log "systemctl enable mariadb.service"
         log "systemctl start mariadb.service"
-		
+		# Automated configuration for securing MySQL/MariaDB		
 		echo "* Securing MariaDB."
 		SECURE_MYSQL=$(expect -c "
 		set timeout 10
@@ -279,8 +279,6 @@ rm -f /root/snipeit.sh~
 rm -rf /root/pre_issue
 rm -rf /root/pre_issue~
 rm -rf /root/snipeit_mail.setup.sh
-#rm -f /root/mysql_secure_install.sh
-#mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
 rm -rf /etc/issue
 rm -rf /etc/issue.net
 mv /etc/issue-backup /etc/issue
