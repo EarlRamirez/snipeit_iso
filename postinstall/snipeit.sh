@@ -288,7 +288,10 @@ rm -rf /etc/profile.d/snipeit.sh
 echo "Run snipeit_mail_setup to configure"
 echo "Snipe-IT to send email notifications"
 echo "It is higly recommended that you change the root default password"
-echo "Run passwd to change the default root password"
+echo "Let us change the root password"
+/bin/passwd 
+echo "Since we are here, let us change snipeit password as well"
+/bin/passwd snipeit
 echo "* Finished!"
 sleep 1
 
