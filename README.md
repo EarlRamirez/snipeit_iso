@@ -10,8 +10,8 @@ However, if you don't want the hassel of updates and upgrades and faster turnove
 
 Below is the list of goals for this project
 
-### Configure an unattended installation of Snipe-IT using CentOS
-#### Create customise scripts and aliases to perform Snipe-IT task
+##### Configure an unattended installation of Snipe-IT using CentOS
+##### Create customise scripts and aliases to perform Snipe-IT task
 ##### Make the OS menu driven for OS and Snipe-IT administration
 
 
