@@ -9,9 +9,10 @@ The goal of this project is to eliminate or limit this challenge by creating a c
 However, if you don't want the hassel of updates and upgrades and faster turnover to your issues, it is recommended that you use the hosted option, more details can be found here ==> https://snipeitapp.com/hosting.
 
 Below is the list of goals for this project
-** Configure an unattended installation of Snipe-IT using CentOS
-** Create customise scripts and aliases to perform Snipe-IT task
-** Make the OS menu driven for OS and Snipe-IT administration
+
+## Configure an unattended installation of Snipe-IT using CentOS
+## Create customise scripts and aliases to perform Snipe-IT task
+## Make the OS menu driven for OS and Snipe-IT administration
 
 
 
