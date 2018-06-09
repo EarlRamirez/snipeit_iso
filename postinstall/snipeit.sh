@@ -232,8 +232,9 @@ echo ""
 		expect eof
 		")
 		echo "$SECURE_MYSQL"
+		echo ""
 
-        #echo "* Creating MariaDB Database/User."
+        echo "* Creating MariaDB Database/User."
         #echo "* Please Input your MariaDB root password "
         mysql -u root --password=$mysql_root_pass --execute="CREATE DATABASE snipeit;GRANT ALL PRIVILEGES ON snipeit.* TO snipeit@localhost IDENTIFIED BY '$mysqluserpw';"
 
