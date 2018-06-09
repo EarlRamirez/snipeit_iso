@@ -285,13 +285,20 @@ rm -rf /etc/issue.net
 mv /etc/issue-backup /etc/issue
 mv /etc/issue.net-backup /etc/issue.net
 rm -rf /etc/profile.d/snipeit.sh
-echo "Run snipeit_mail_setup to configure"
-echo "Snipe-IT to send email notifications"
+echo ""
+echo ""
 echo "It is higly recommended that you change the root default password"
 echo "Let us change the root password"
-/bin/passwd 
-echo "Since we are here, let us change snipeit password as well"
+/bin/passwd
+echo ""
+echo ""
+echo "Since we are here, let us change snipeit password"
 /bin/passwd snipeit
+/bin/clear
+echo "Almost there! Let us conifgure Snipe-IT to send
+	  email notification, if you wish to perform this
+	  this step at another time run snipeit_mail.setup.sh"
+/usr/local/bin/snipeit_mail.setup.sh
 echo "* Finished!"
 sleep 1
 
