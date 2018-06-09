@@ -245,7 +245,8 @@ echo ""
         #TODO make sure this isnt already in there
         echo "* Setting up hosts file."
         echo >> $hosts "127.0.0.1 $hostname $fqdn"
-
+		
+		echo "* Installing Snipe-IT"	
         installsnipeit
 
         #open the firewall for HTTP traffic only
