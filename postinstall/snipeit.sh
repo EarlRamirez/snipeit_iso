@@ -277,9 +277,11 @@ echo "  ***Open http://$fqdn to login to Snipe-IT.***"
 echo ""
 echo ""
 echo "* Cleaning up..."
-rm -f /root/snipeit.sh
-rm -f /root/snipeit.sh~
+rm -rf /root/snipeit.sh
+rm -rf /root/snipeit.sh~
 rm -rf /root/pre_issue
+rm -rf /root/motd
+rm -rf /root/motd~
 rm -rf /root/pre_issue~
 rm -rf /root/snipeit_mail_setup.sh
 rm -rf /etc/issue
@@ -298,8 +300,8 @@ echo "Since we are here, let us change snipeit password"
 /bin/passwd snipeit
 /bin/clear
 echo "Almost there! Let us conifgure Snipe-IT to send
-	  email notification, if you wish to perform this
-	  this step at another time run snipeit_mail.setup.sh"
+email notification, if you wish to perform this
+step at another time run snipeit_mail.setup.sh"
 /usr/local/bin/snipeit_mail.setup.sh
 echo "* Finished!"
 sleep 1
