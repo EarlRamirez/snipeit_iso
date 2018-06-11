@@ -290,8 +290,6 @@ mv /etc/issue-backup /etc/issue
 mv /etc/issue.net-backup /etc/issue.net
 #rm -rf /etc/profile.d/snipeit.sh
 rm -rf /etc/rc.d/rc.local
-/usr/bin/systemctl disable rc-local.service
-mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
 echo ""
 echo ""
 echo "It is higly recommended that you change the root default password"
