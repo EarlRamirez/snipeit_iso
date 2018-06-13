@@ -35,7 +35,7 @@ hosts=/etc/hosts
 mysqluserpw="$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c16; echo)"
 #TODO: automate root password or add it to menu 
 mysql_root_pass="snipe_Snipe-IT"
-ip_addr="echo $(ip -o -4 addr show dev team0 | sed 's/.* inet \([^/]*\).*/\1/')"
+ipaddr="$(ip -o -4 addr show dev eth0 | sed 's/.* inet \([^/]*\).*/\1/')"
 
 spin[0]="-"
 spin[1]="\\"
