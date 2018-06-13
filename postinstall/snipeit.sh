@@ -54,7 +54,7 @@ setvhcentos () {
         echo "        Options +Indexes"
         echo "   </Directory>"
         echo "    DocumentRoot $webdir/$name/public"
-        echo "    ServerName $fqdn"
+        echo "    ServerName $ipaddr"
         echo "        ErrorLog /var/log/httpd/snipeIT.error.log"
         echo "        CustomLog /var/log/httpd/access.log combined"
         echo "</VirtualHost>"
@@ -82,13 +82,13 @@ installsnipeit () {
     sed -i 's,^\(DB_DATABASE=\).*,\1'snipeit',' "$webdir/$name/.env"
     sed -i 's,^\(DB_USERNAME=\).*,\1'snipeit',' "$webdir/$name/.env"
     sed -i 's,^\(DB_PASSWORD=\).*,\1'$mysqluserpw',' "$webdir/$name/.env"
-    sed -i 's,^\(APP_URL=\).*,\1'http://$fqdn',' "$webdir/$name/.env"
+    sed -i 's,^\(APP_URL=\).*,\1'http://$ipaddr',' "$webdir/$name/.env"
 
     echo "* Installing and running composer."
     cd "$webdir/$name/"
-    curl -sS https://getcomposer.org/installer | php
+    #curl -sS https://getcomposer.org/installer | php
     # Added composer_process_timeout variable for slow internet connections
-    COMPOSER_PROCESS_TIMEOUT=6000 php composer.phar install --no-dev --prefer-source
+    #COMPOSER_PROCESS_TIMEOUT=6000 php composer.phar install --no-dev --prefer-source
 
     echo "* Setting permissions."
     for chmod_dir in "$webdir/$name/storage" "$webdir/$name/storage/private_uploads" "$webdir/$name/public/uploads"; do
@@ -97,11 +97,11 @@ installsnipeit () {
 
     chown -R "$ownergroup" "$webdir/$name"
 
-    echo "* Generating the application key."
-    log "php artisan key:generate --force"
+    #echo "* Generating the application key."
+    #php artisan key:generate --force
 
-    echo "* Artisan Migrate."
-    log "php artisan migrate --force"
+    #echo "* Artisan Migrate."
+    #php artisan migrate --force
 
     echo "* Creating scheduler cron."
     (crontab -l ; echo "* * * * * /usr/bin/php $webdir/$name/artisan schedule:run >> /dev/null 2>&1") | crontab -
@@ -123,13 +123,13 @@ isdnfinstalled () {
     fi
 }
 #TODO:  Duplicate with kickstart need to eliminate one 
-openfirewalld () {
-    if [ "$(firewall-cmd --state)" == "running" ]; then
-        echo "* Configuring firewall to allow HTTP traffic only."
-        log "firewall-cmd --zone=public --add-service={http,https,ssh} --permanent"
-        log "firewall-cmd --reload"
-    fi
-}
+#openfirewalld () {
+#    if [ "$(firewall-cmd --state)" == "running" ]; then
+#        echo "* Configuring firewall to allow HTTP traffic only."
+#        log "firewall-cmd --zone=public --add-service={http,https,ssh} --permanent"
+#        log "firewall-cmd --reload"
+#    fi
+#}
 
 if [ -f /etc/os-release ]; then
     distro="$(. /etc/os-release && echo $ID)"
@@ -190,9 +190,9 @@ echo ""
         tzone=$(timedatectl | gawk -F'[: ]' ' $9 ~ /zone/ {print $11}');
 
         echo "* Adding IUS, epel-release and MariaDB repositories."
-        log "yum -y install wget epel-release"
-        log "yum -y install https://centos7.iuscommunity.org/ius-release.rpm"
-        log "rpm --import /etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY"
+        #log "yum -y install wget epel-release"
+        #log "yum -y install https://centos7.iuscommunity.org/ius-release.rpm"
+        #log "rpm --import /etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY"
 
         echo "* Installing Apache httpd, PHP, MariaDB and other requirements."
         PACKAGES="httpd mariadb-server git expect unzip php71u php71u-mysqlnd php71u-bcmath php71u-process php71u-cli php71u-common php71u-embedded php71u-gd php71u-mbstring php71u-mcrypt php71u-ldap php71u-json php71u-simplexml"
@@ -207,8 +207,8 @@ echo ""
         done;
 
         echo "* Setting MariaDB to start on boot and starting MariaDB."
-        log "systemctl enable mariadb.service"
-        log "systemctl start mariadb.service"
+        #log "systemctl enable mariadb.service"
+        #log "systemctl start mariadb.service"
 		# Automated configuration for securing MySQL/MariaDB		
 		echo "* Securing MariaDB."
 		SECURE_MYSQL=$(expect -c "
@@ -265,7 +265,7 @@ echo ""
         fi
 
         echo "* Setting Apache httpd to start on boot and starting service."
-        log "systemctl enable httpd.service"
+        #log "systemctl enable httpd.service"
         log "systemctl restart httpd.service"
 
     else
@@ -274,6 +274,12 @@ echo ""
     fi
 
 echo ""
+    echo "* Generating the application key."
+    #sudo -u apache php artisan key:generate --force
+
+    echo "* Artisan Migrate."
+    #sudo -u apache php artisan migrate --force
+
 echo "* Cleaning up..."
 rm -rf /root/snipeit.sh
 rm -rf /root/snipeit.sh~
@@ -299,8 +305,10 @@ echo "Almost there! Let us conifgure Snipe-IT to send
 email notification, if you wish to perform this
 step at another time run snipeit_mail.setup.sh"
 /usr/local/bin/snipeit_mail.setup.sh
+php artisan key:generate --force
+php artisan migrate --force
 echo ""
-echo "  ***Open http://$ip_addr to login to Snipe-IT.***"
+echo "  ***Open http://$ipaddr to login to Snipe-IT.***"
 echo ""
 echo "* Finished!"
 sleep 1
