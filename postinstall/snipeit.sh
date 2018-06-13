@@ -35,6 +35,7 @@ hosts=/etc/hosts
 mysqluserpw="$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c16; echo)"
 #TODO: automate root password or add it to menu 
 mysql_root_pass="snipe_Snipe-IT"
+ip_addr="echo $(ip -o -4 addr show dev team0 | sed 's/.* inet \([^/]*\).*/\1/')"
 
 spin[0]="-"
 spin[1]="\\"
@@ -299,7 +300,7 @@ email notification, if you wish to perform this
 step at another time run snipeit_mail.setup.sh"
 /usr/local/bin/snipeit_mail.setup.sh
 echo ""
-echo "  ***Open http://$fqdn to login to Snipe-IT.***"
+echo "  ***Open http://$ip_addr to login to Snipe-IT.***"
 echo ""
 echo "* Finished!"
 sleep 1
