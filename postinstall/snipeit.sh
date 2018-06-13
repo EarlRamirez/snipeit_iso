@@ -88,7 +88,7 @@ installsnipeit () {
     cd "$webdir/$name/"
     #curl -sS https://getcomposer.org/installer | php
     # Added composer_process_timeout variable for slow internet connections
-    #COMPOSER_PROCESS_TIMEOUT=6000 php composer.phar install --no-dev --prefer-source
+    COMPOSER_PROCESS_TIMEOUT=6000 php composer.phar install --no-dev --prefer-source
 
     echo "* Setting permissions."
     for chmod_dir in "$webdir/$name/storage" "$webdir/$name/storage/private_uploads" "$webdir/$name/public/uploads"; do
@@ -207,8 +207,8 @@ echo ""
         #done;
 
         #echo "* Setting MariaDB to start on boot and starting MariaDB."
-        #log "systemctl enable mariadb.service"
-        #log "systemctl start mariadb.service"
+        log "systemctl enable mariadb.service"
+        log "systemctl start mariadb.service"
 		# Automated configuration for securing MySQL/MariaDB		
 		echo "* Securing MariaDB."
 		SECURE_MYSQL=$(expect -c "
