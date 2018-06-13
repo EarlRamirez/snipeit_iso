@@ -189,24 +189,24 @@ echo ""
         ownergroup=apache:apache
         tzone=$(timedatectl | gawk -F'[: ]' ' $9 ~ /zone/ {print $11}');
 
-        echo "* Adding IUS, epel-release and MariaDB repositories."
+        #echo "* Adding IUS, epel-release and MariaDB repositories."
         #log "yum -y install wget epel-release"
         #log "yum -y install https://centos7.iuscommunity.org/ius-release.rpm"
         #log "rpm --import /etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY"
 
-        echo "* Installing Apache httpd, PHP, MariaDB and other requirements."
-        PACKAGES="httpd mariadb-server git expect unzip php71u php71u-mysqlnd php71u-bcmath php71u-process php71u-cli php71u-common php71u-embedded php71u-gd php71u-mbstring php71u-mcrypt php71u-ldap php71u-json php71u-simplexml"
+        #echo "* Installing Apache httpd, PHP, MariaDB and other requirements."
+        #PACKAGES="httpd mariadb-server git expect unzip php71u php71u-mysqlnd php71u-bcmath php71u-process php71u-cli php71u-common php71u-embedded php71u-gd php71u-mbstring php71u-mcrypt php71u-ldap php71u-json php71u-simplexml"
 
-        for p in $PACKAGES; do
-            if isinstalled "$p"; then
-                echo "  * $p already installed"
-            else
-                echo "  * Installing $p ... "
-                log "yum -y install $p"
-            fi
-        done;
+        #for p in $PACKAGES; do
+        #    if isinstalled "$p"; then
+        #        echo "  * $p already installed"
+        #   else
+        #        echo "  * Installing $p ... "
+        #        log "yum -y install $p"
+        #    fi
+        #done;
 
-        echo "* Setting MariaDB to start on boot and starting MariaDB."
+        #echo "* Setting MariaDB to start on boot and starting MariaDB."
         #log "systemctl enable mariadb.service"
         #log "systemctl start mariadb.service"
 		# Automated configuration for securing MySQL/MariaDB		
