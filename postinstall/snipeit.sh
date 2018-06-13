@@ -33,7 +33,7 @@ hostname="$(hostname)"
 fqdn="$(hostname --fqdn)"
 hosts=/etc/hosts
 mysqluserpw="$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c16; echo)"
-#TODO automate root password or add it to menu 
+#TODO: automate root password or add it to menu 
 mysql_root_pass="snipe_Snipe-IT"
 
 spin[0]="-"
@@ -154,7 +154,7 @@ echo "
 "
 
 echo ""
-echo "  Welcome to Snipe-IT Inventory Installer for CentOS, Fedora, Debian and Ubuntu!"
+echo "  Welcome to Snipe-IT Inventory Installer!"
 echo "  Many thanks to @snipe (mastermind behind Snipe-IT) "
 echo "  Mike Tucker (creator of this script) and the Snipe-IT community"
 echo ""
@@ -250,17 +250,17 @@ echo ""
         installsnipeit
 
         #open the firewall for HTTP traffic only
-        openfirewalld
+        #openfirewalld 
 
         #Check if SELinux is enforcing
         if [ "$(getenforce)" == "Enforcing" ]; then
             echo "* Configuring SELinux."
-            #Required for ldap integration
+            #Required for ldap integration and email notifications
             setsebool -P httpd_can_connect_ldap on
             setsebool -P httpd_can_sendmail on
             #Sets SELinux context type so that scripts running in the web server process are allowed read/write access
             semanage fcontext -a -t httpd_sys_rw_content_t "$webdir/$name(/.*)?"
-			restorecon -R $webdir/$name
+	    restorecon -R $webdir/$name
         fi
 
         echo "* Setting Apache httpd to start on boot and starting service."
@@ -272,9 +272,6 @@ echo ""
         exit 1
     fi
 
-echo ""
-echo "  ***Open http://$fqdn to login to Snipe-IT.***"
-echo ""
 echo ""
 echo "* Cleaning up..."
 rm -rf /root/snipeit.sh
@@ -289,14 +286,11 @@ rm -rf /etc/issue.net
 mv /etc/issue-backup /etc/issue
 mv /etc/issue.net-backup /etc/issue.net
 rm -rf /etc/profile.d/snipeit.sh
-#rm -rf /etc/rc.d/rc.local
-echo ""
 echo ""
 echo "It is higly recommended that you change the root default password"
 echo "Let us change the root password"
 /bin/passwd
-echo ""
-echo ""
+/bin/clear
 echo "Since we are here, let us change snipeit password"
 /bin/passwd snipeit
 /bin/clear
@@ -304,6 +298,9 @@ echo "Almost there! Let us conifgure Snipe-IT to send
 email notification, if you wish to perform this
 step at another time run snipeit_mail.setup.sh"
 /usr/local/bin/snipeit_mail.setup.sh
+echo ""
+echo "  ***Open http://$fqdn to login to Snipe-IT.***"
+echo ""
 echo "* Finished!"
 sleep 1
 
