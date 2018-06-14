@@ -86,9 +86,6 @@ installsnipeit () {
 
     echo "* Installing and running composer."
     cd "$webdir/$name/"
-    #curl -sS https://getcomposer.org/installer | php
-    # Added composer_process_timeout variable for slow internet connections
-    #COMPOSER_PROCESS_TIMEOUT=6000 php composer.phar install --no-dev --prefer-source
 
     echo "* Setting permissions."
     for chmod_dir in "$webdir/$name/storage" "$webdir/$name/storage/private_uploads" "$webdir/$name/public/uploads"; do
@@ -116,14 +113,6 @@ isdnfinstalled () {
         false
     fi
 }
-#TODO:  Duplicate with kickstart need to eliminate one 
-#openfirewalld () {
-#    if [ "$(firewall-cmd --state)" == "running" ]; then
-#        echo "* Configuring firewall to allow HTTP traffic only."
-#        log "firewall-cmd --zone=public --add-service={http,https,ssh} --permanent"
-#        log "firewall-cmd --reload"
-#    fi
-#}
 
 if [ -f /etc/os-release ]; then
     distro="$(. /etc/os-release && echo $ID)"
@@ -171,10 +160,8 @@ esac
 shopt -u nocasematch
 fqdn="$(hostname --fqdn)"
 
-echo "     Setting to $ipaddr"
+#echo "     Setting to $ipaddr"
 echo ""
-
-
 #TODO: Lets not install snipeit application under root
 
 	   if [[ "$version" =~ ^7 ]]; then
@@ -183,26 +170,10 @@ echo ""
         ownergroup=apache:apache
         tzone=$(timedatectl | gawk -F'[: ]' ' $9 ~ /zone/ {print $11}');
 
-        #echo "* Adding IUS, epel-release and MariaDB repositories."
-        #log "yum -y install wget epel-release"
-        #log "yum -y install https://centos7.iuscommunity.org/ius-release.rpm"
-        #log "rpm --import /etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY"
-
-        #echo "* Installing Apache httpd, PHP, MariaDB and other requirements."
-        #PACKAGES="httpd mariadb-server git expect unzip php71u php71u-mysqlnd php71u-bcmath php71u-process php71u-cli php71u-common php71u-embedded php71u-gd php71u-mbstring php71u-mcrypt php71u-ldap php71u-json php71u-simplexml"
-
-        #for p in $PACKAGES; do
-        #    if isinstalled "$p"; then
-        #        echo "  * $p already installed"
-        #   else
-        #        echo "  * Installing $p ... "
-        #        log "yum -y install $p"
-        #    fi
-        #done;
-
         echo "* Setting MariaDB to start on boot and starting MariaDB."
         #log "systemctl enable mariadb.service"
         log "systemctl restart mariadb.service"
+		
 		# Automated configuration for securing MySQL/MariaDB		
 		echo "* Securing MariaDB."
 		SECURE_MYSQL=$(expect -c "
@@ -230,7 +201,6 @@ echo ""
 		echo ""
 
         echo "* Creating MariaDB Database/User."
-        #echo "* Please Input your MariaDB root password "
         mysql -u root --password=$mysql_root_pass --execute="CREATE DATABASE snipeit;GRANT ALL PRIVILEGES ON snipeit.* TO snipeit@localhost IDENTIFIED BY '$mysqluserpw';"
 
         #TODO make sure the apachefile doesnt exist isnt already in there
@@ -244,18 +214,16 @@ echo ""
 		echo "* Installing Snipe-IT"	
         installsnipeit
 
-        #open the firewall for HTTP traffic only
-        #openfirewalld 
 
         #Check if SELinux is enforcing
         if [ "$(getenforce)" == "Enforcing" ]; then
             echo "* Configuring SELinux."
             #Required for ldap integration and email notifications
-            setsebool -P httpd_can_connect_ldap on
-            setsebool -P httpd_can_sendmail on
+            #setsebool -P httpd_can_connect_ldap on
+            #setsebool -P httpd_can_sendmail on
             #Sets SELinux context type so that scripts running in the web server process are allowed read/write access
             semanage fcontext -a -t httpd_sys_rw_content_t "$webdir/$name(/.*)?"
-	    restorecon -R $webdir/$name
+	        restorecon -R $webdir/$name
         fi
 
         echo "* Setting Apache httpd to start on boot and starting service."
@@ -283,15 +251,17 @@ rm -rf /root/motd.sh~
 cp /root/issue /etc/issue
 mv /root/issue /etc/issue.net
 rm -rf /etc/profile.d/snipeit.sh
+rm -rf /etc/rc.d/rc.local
+mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
 /bin/clear
+
 echo ""
 echo " Let's change the default credentials for the system users
 root and snipeit, while we are at it we will change the mariadb root password"
-echo "It is higly recommended that you change the root default password"
-echo "Changing root password..."
+echo ""
 /bin/passwd
 echo ""
-echo "Changing snipeit password..."
+echo ""
 /bin/passwd snipeit
 echo ""
 echo "Changing mariaDB root password..."
