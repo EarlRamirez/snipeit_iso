@@ -274,24 +274,21 @@ echo ""
     fi
 
 echo ""
-    echo "* Generating the application key."
-    #sudo -u apache php artisan key:generate --force
-
-    echo "* Artisan Migrate."
-    #sudo -u apache php artisan migrate --force
-
 echo "* Cleaning up..."
 rm -rf /root/snipeit.sh
 rm -rf /root/snipeit.sh~
 rm -rf /root/pre_issue
-rm -rf /root/motd
-rm -rf /root/motd~
 rm -rf /root/pre_issue~
+rm -rf /root/mariadb_pass_change.sh*
+rm -rf /root/snipe_alias*
 rm -rf /root/snipeit_mail_setup.sh
 rm -rf /etc/issue
 rm -rf /etc/issue.net
-mv /etc/issue-backup /etc/issue
-mv /etc/issue.net-backup /etc/issue.net
+mv /root/motd /etc/issue
+mv /root/motd /etc/issue.net
+rm -rf /root/motd~
+rm -rf /etc/issue-backup
+rm -rf /etc/issue.net-backup
 rm -rf /etc/profile.d/snipeit.sh
 echo ""
 echo "It is higly recommended that you change the root default password"
