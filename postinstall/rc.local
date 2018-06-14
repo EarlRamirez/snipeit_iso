@@ -53,7 +53,7 @@ setvhcentos () {
         echo "        Options +Indexes"
         echo "   </Directory>"
         echo "    DocumentRoot $webdir/$name/public"
-        echo "    ServerName $ipaddr"
+        echo "    ServerName $fqdn"
         echo "        ErrorLog /var/log/httpd/snipeIT.error.log"
         echo "        CustomLog /var/log/httpd/access.log combined"
         echo "</VirtualHost>"
@@ -217,9 +217,6 @@ echo ""
         #Check if SELinux is enforcing
         if [ "$(getenforce)" == "Enforcing" ]; then
             echo "* Configuring SELinux."
-            #Required for ldap integration and email notifications
-            #setsebool -P httpd_can_connect_ldap on
-            #setsebool -P httpd_can_sendmail on
             #Sets SELinux context type so that scripts running in the web server process are allowed read/write access
             semanage fcontext -a -t httpd_sys_rw_content_t "$webdir/$name(/.*)?"
 	        restorecon -R $webdir/$name
@@ -249,6 +246,7 @@ mv /root/motd.sh /etc/profile.d/motd.sh
 rm -rf /root/motd.sh~
 cp /root/issue /etc/issue
 mv /root/issue /etc/issue.net
+rm -rf /root/rc.local
 rm -rf /etc/rc.d/rc.local
 mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
 echo "* Finished!"
