@@ -14,10 +14,7 @@ echo ""
 echo "Almost there! Let us conifgure Snipe-IT to send
 email notification, if you wish to perform this
 step at another time run snipeit_mail.setup.sh"
-cd /var/www/htm/snipeit/
 /usr/local/bin/snipeit_mail.setup.sh
-php artisan key:generate --force
-php artisan migrate --force
 echo ""
 echo "  ***Open http://$ipaddr to login to Snipe-IT.***"
 echo ""

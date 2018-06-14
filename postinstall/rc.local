@@ -232,6 +232,10 @@ echo ""
     fi
 
 echo ""
+echo "Final Snipe-IT Configuration"
+php artisan key:generate --force
+php artisan migrate --force
+echo ""
 echo "* Cleaning up..."
 rm -rf /root/snipeit.sh
 rm -rf /root/snipeit.sh~
