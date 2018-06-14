@@ -251,8 +251,6 @@ rm -rf /root/motd.sh~
 cp /root/issue /etc/issue
 mv /root/issue /etc/issue.net
 rm -rf /etc/profile.d/snipeit.sh
-rm -rf /etc/rc.d/rc.local
-mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
 /bin/clear
 
 echo ""
