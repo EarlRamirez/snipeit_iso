@@ -88,7 +88,7 @@ installsnipeit () {
     cd "$webdir/$name/"
     #curl -sS https://getcomposer.org/installer | php
     # Added composer_process_timeout variable for slow internet connections
-    COMPOSER_PROCESS_TIMEOUT=6000 php composer.phar install --no-dev --prefer-source
+    #COMPOSER_PROCESS_TIMEOUT=6000 php composer.phar install --no-dev --prefer-source
 
     echo "* Setting permissions."
     for chmod_dir in "$webdir/$name/storage" "$webdir/$name/storage/private_uploads" "$webdir/$name/public/uploads"; do
@@ -96,12 +96,6 @@ installsnipeit () {
     done
 
     chown -R "$ownergroup" "$webdir/$name"
-
-    #echo "* Generating the application key."
-    #php artisan key:generate --force
-
-    #echo "* Artisan Migrate."
-    #php artisan migrate --force
 
     echo "* Creating scheduler cron."
     (crontab -l ; echo "* * * * * /usr/bin/php $webdir/$name/artisan schedule:run >> /dev/null 2>&1") | crontab -
@@ -177,7 +171,7 @@ esac
 shopt -u nocasematch
 fqdn="$(hostname --fqdn)"
 
-echo "     Setting to $fqdn"
+echo "     Setting to $ipaddr"
 echo ""
 
 
@@ -206,9 +200,9 @@ echo ""
         #    fi
         #done;
 
-        #echo "* Setting MariaDB to start on boot and starting MariaDB."
-        log "systemctl enable mariadb.service"
-        log "systemctl start mariadb.service"
+        echo "* Setting MariaDB to start on boot and starting MariaDB."
+        #log "systemctl enable mariadb.service"
+        log "systemctl restart mariadb.service"
 		# Automated configuration for securing MySQL/MariaDB		
 		echo "* Securing MariaDB."
 		SECURE_MYSQL=$(expect -c "
@@ -284,20 +278,26 @@ rm -rf /root/snipe_alias*
 rm -rf /root/snipeit_mail_setup.sh
 rm -rf /etc/issue
 rm -rf /etc/issue.net
-mv /root/motd /etc/issue
+cp /root/motd /etc/issue
 mv /root/motd /etc/issue.net
 rm -rf /root/motd~
 rm -rf /etc/issue-backup
 rm -rf /etc/issue.net-backup
 rm -rf /etc/profile.d/snipeit.sh
+/bin/clear
 echo ""
+echo " Let's change the default credentials for the system users
+root and snipeit, while we are at it we will change the mariadb root password"
 echo "It is higly recommended that you change the root default password"
-echo "Let us change the root password"
+echo "Changing root password..."
 /bin/passwd
-/bin/clear
-echo "Since we are here, let us change snipeit password"
+echo ""
+echo "Changing snipeit password..."
 /bin/passwd snipeit
-/bin/clear
+echo ""
+echo "Changing mariaDB root password..."
+/usr/local/bin/mariadb_pass_change.sh
+echo ""
 echo "Almost there! Let us conifgure Snipe-IT to send
 email notification, if you wish to perform this
 step at another time run snipeit_mail.setup.sh"
