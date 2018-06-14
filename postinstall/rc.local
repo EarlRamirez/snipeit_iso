@@ -1,0 +1,256 @@
+#!/bin/bash
+# Install and configure Snipe-IT
+######################################################
+#           Snipe-It Install Script                  #
+#          Script created by Mike Tucker             #
+#            mtucker6784@gmail.com                   #
+# This script is just to help streamline the         #
+# install process for Debian and CentOS              #
+# based distributions. I assume you will be          #
+# installing as a subdomain on a fresh OS install.   #
+#                                                    #
+# Feel free to modify, but please give               #
+# credit where it's due. Thanks!                     #
+######################################################
+
+# ensure running as root
+if [ "$(id -u)" != "0" ]; then
+    #Debian doesnt have sudo if root has a password.
+    if ! hash sudo 2>/dev/null; then
+        exec su -c "$0" "$@"
+    else
+        exec sudo "$0" "$@"
+    fi
+fi
+
+#First things first, let's set some variables and find our distro.
+clear
+
+name="snipeit"
+verbose="false"
+hostname="$(hostname)"
+fqdn="$(hostname --fqdn)"
+hosts=/etc/hosts
+mysqluserpw="$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c16; echo)"
+#TODO: automate root password or add it to menu 
+mysql_root_pass="snipe_Snipe-IT"
+ipaddr="$(ip -o -4 addr show dev eth0 | sed 's/.* inet \([^/]*\).*/\1/')"
+
+spin[0]="-"
+spin[1]="\\"
+spin[2]="|"
+spin[3]="/"
+
+# updated access.log to be inside of httpd/ to prevent SELinux errors.
+setvhcentos () {
+    apachefile=/etc/httpd/conf.d/$name.conf
+    {
+        echo "<VirtualHost *:80>"
+        echo "ServerAdmin webmaster@localhost"
+        echo "    <Directory $webdir/$name/public>"
+        echo "        Allow From All"
+        echo "        AllowOverride All"
+        echo "        Options +Indexes"
+        echo "   </Directory>"
+        echo "    DocumentRoot $webdir/$name/public"
+        echo "    ServerName $ipaddr"
+        echo "        ErrorLog /var/log/httpd/snipeIT.error.log"
+        echo "        CustomLog /var/log/httpd/access.log combined"
+        echo "</VirtualHost>"
+    } >> "$apachefile"
+}
+
+log () {
+    if [ "$verbose" = true ]; then
+        eval "$@"
+    else
+        eval "$@" |& tee -a /var/log/snipeit-install.log >/dev/null 2>&1
+    fi
+}
+
+installsnipeit () {
+    echo "* Cloning Snipe-IT from github to the web directory."
+    log "git clone https://github.com/snipe/snipe-it $webdir/$name"
+
+    echo "* Configuring .env file."
+    cp "$webdir/$name/.env.example" "$webdir/$name/.env"
+
+    sed -i '1 i\#Created By Snipe-it Installer' "$webdir/$name/.env"
+    sed -i 's,^\(APP_TIMEZONE=\).*,\1'$tzone',' "$webdir/$name/.env"
+    sed -i 's,^\(DB_HOST=\).*,\1'localhost',' "$webdir/$name/.env"
+    sed -i 's,^\(DB_DATABASE=\).*,\1'snipeit',' "$webdir/$name/.env"
+    sed -i 's,^\(DB_USERNAME=\).*,\1'snipeit',' "$webdir/$name/.env"
+    sed -i 's,^\(DB_PASSWORD=\).*,\1'$mysqluserpw',' "$webdir/$name/.env"
+    sed -i 's,^\(APP_URL=\).*,\1'http://$ipaddr',' "$webdir/$name/.env"
+
+    echo "* Installing and running composer."
+    cd "$webdir/$name/"
+
+    echo "* Setting permissions."
+    for chmod_dir in "$webdir/$name/storage" "$webdir/$name/storage/private_uploads" "$webdir/$name/public/uploads"; do
+        chmod -R 775 "$chmod_dir"
+    done
+
+    chown -R "$ownergroup" "$webdir/$name"
+
+    echo "* Creating scheduler cron."
+    (crontab -l ; echo "* * * * * /usr/bin/php $webdir/$name/artisan schedule:run >> /dev/null 2>&1") | crontab -
+}
+
+isinstalled () {
+    if yum list installed "$@" >/dev/null 2>&1; then
+        true
+    else
+        false
+    fi
+}
+
+isdnfinstalled () {
+    if dnf list installed "$@" >/dev/null 2>&1; then
+        true
+    else
+        false
+    fi
+}
+
+if [ -f /etc/os-release ]; then
+    distro="$(. /etc/os-release && echo $ID)"
+    version="$(. /etc/os-release && echo $VERSION_ID)"
+    #Order is important here.  If /etc/os-release and /etc/centos-release exist, we're on centos 7.
+    #If only /etc/centos-release exist, we're on centos6(or earlier).  Centos-release is less parsable,
+    #so lets assume that it's version 6 (Plus, who would be doing a new install of anything on centos5 at this point..)
+    #/etc/os-release also properly detects fedora
+elif [ -f /etc/centos-release ]; then
+    distro="Centos"
+    version="6"
+else
+    distro="unsupported"
+fi
+
+echo "
+       _____       _                  __________
+      / ___/____  (_)___  ___        /  _/_  __/
+      \__ \/ __ \/ / __ \/ _ \______ / /  / /
+     ___/ / / / / / /_/ /  __/_____// /  / /
+    /____/_/ /_/_/ .___/\___/     /___/ /_/
+                /_/
+"
+
+echo ""
+echo "  Welcome to Snipe-IT Inventory Installer!"
+echo "  Many thanks to @snipe (mastermind behind Snipe-IT) "
+echo "  Mike Tucker (creator of this script) and the Snipe-IT community"
+echo ""
+shopt -s nocasematch
+case $distro in
+    *centos*|*redhat*|*ol*|*rhel*)
+        echo "  The installer has detected $distro version $version."
+        distro=centos
+        ;;
+    *fedora*)
+        echo "  The installer has detected $distro version $version."
+        distro=fedora
+        ;;
+    *)
+        echo "  The installer was unable to determine your OS. Exiting for safety."
+        exit
+        ;;
+esac
+shopt -u nocasematch
+fqdn="$(hostname --fqdn)"
+
+#echo "     Setting to $ipaddr"
+echo ""
+#TODO: Lets not install snipeit application under root
+
+	   if [[ "$version" =~ ^7 ]]; then
+        #####################################  Install for CentOS/Redhat 7  ##############################################
+        webdir=/var/www/html
+        ownergroup=apache:apache
+        tzone=$(timedatectl | gawk -F'[: ]' ' $9 ~ /zone/ {print $11}');
+
+        echo "* Setting MariaDB to start on boot and starting MariaDB."
+        #log "systemctl enable mariadb.service"
+        log "systemctl restart mariadb.service"
+		
+		# Automated configuration for securing MySQL/MariaDB		
+		echo "* Securing MariaDB."
+		SECURE_MYSQL=$(expect -c "
+		set timeout 10
+		spawn /bin/mysql_secure_installation
+		expect \"Enter current password for root (enter for none):\"
+		send \"$mysql_root\r\"
+		expect \"Change the root password?\"
+		send \"y\r\"
+		expect \"New password:\"
+		send \"$mysql_root_pass\r\"
+		expect \"Re-enter new password:\"
+		send \"$mysql_root_pass\r\"
+		expect \"Remove anonymous users?\"
+		send \"y\r\"
+		expect \"Disallow root login remotely?\"
+		send \"y\r\"
+		expect \"Remove test database and access to it?\"
+		send \"y\r\"
+		expect \"Reload privilege tables now?\"
+		send \"y\r\"
+		expect eof
+		")
+		echo "$SECURE_MYSQL"
+		echo ""
+
+        echo "* Creating MariaDB Database/User."
+        mysql -u root --password=$mysql_root_pass --execute="CREATE DATABASE snipeit;GRANT ALL PRIVILEGES ON snipeit.* TO snipeit@localhost IDENTIFIED BY '$mysqluserpw';"
+
+        #TODO make sure the apachefile doesnt exist isnt already in there
+        echo "* Creating the new virtual host in Apache."
+        setvhcentos
+
+        #TODO make sure this isnt already in there
+        echo "* Setting up hosts file."
+        echo >> $hosts "127.0.0.1 $hostname $fqdn"
+		
+		echo "* Installing Snipe-IT"	
+        installsnipeit
+
+
+        #Check if SELinux is enforcing
+        if [ "$(getenforce)" == "Enforcing" ]; then
+            echo "* Configuring SELinux."
+            #Required for ldap integration and email notifications
+            #setsebool -P httpd_can_connect_ldap on
+            #setsebool -P httpd_can_sendmail on
+            #Sets SELinux context type so that scripts running in the web server process are allowed read/write access
+            semanage fcontext -a -t httpd_sys_rw_content_t "$webdir/$name(/.*)?"
+	        restorecon -R $webdir/$name
+        fi
+
+        echo "* Setting Apache httpd to start on boot and starting service."
+        #log "systemctl enable httpd.service"
+        log "systemctl restart httpd.service"
+
+    else
+        echo "Unsupported CentOS version. Version found: $version"
+        exit 1
+    fi
+
+echo ""
+echo "* Cleaning up..."
+rm -rf /root/snipeit.sh
+rm -rf /root/snipeit.sh~
+rm -rf /root/pre_issue
+rm -rf /root/pre_issue~
+rm -rf /root/mariadb_pass_change.sh*
+rm -rf /root/snipe_alias*
+rm -rf /root/snipeit_mail_setup.sh
+rm -rf /etc/issue
+rm -rf /etc/issue.net
+mv /root/motd.sh /etc/profile.d/motd.sh
+rm -rf /root/motd.sh~
+cp /root/issue /etc/issue
+mv /root/issue /etc/issue.net
+rm -rf /etc/rc.d/rc.local
+mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
+echo "* Finished!"
+sleep 1
+
