@@ -1,11 +1,21 @@
-###########################################
-# Welcome to Snipe-IT, please login with  #
-# the following default credentials to    #
-# complete the installation               #
-#                                         #
-# username: root                          #
-# password: snipe_Snipe-IT                #
-#                                         #
-# IMPORTANT: this server must have access #
-# to the internet.                        #
-###########################################
+######################################################
+#       _____       _                  __________    #
+#      / ___/____  (_)___  ___        /  _/_  __/    #
+#      \__ \/ __ \/ / __ \/ _ \______ / /  / /       #
+#     ___/ / / / / / /_/ /  __/_____// /  / /        #
+#    /____/_/ /_/_/ .___/\___/     /___/ /_/         #
+#                /_/                                 #
+#                                                    #
+#    Welcome to Snipe-IT Inventory, please login     #
+#    with the below credentials to complete          #
+#    the installation.                               #
+#                                                    #
+#        username: root                              #
+#        password: snipe_Snipe-IT                    #
+#                                                    #
+#   Point your browser to http://\4{eth0} to         #
+#   complete the prefight test and start enjoying    #
+#             Snipe-IT                               #
+#                                                    #
+######################################################
+
