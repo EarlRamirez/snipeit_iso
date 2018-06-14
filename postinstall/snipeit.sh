@@ -278,11 +278,10 @@ rm -rf /root/snipe_alias*
 rm -rf /root/snipeit_mail_setup.sh
 rm -rf /etc/issue
 rm -rf /etc/issue.net
-cp /root/motd /etc/issue
-mv /root/motd /etc/issue.net
-rm -rf /root/motd~
-rm -rf /etc/issue-backup
-rm -rf /etc/issue.net-backup
+mv /root/motd.sh /etc/profile.d/motd.sh
+rm -rf /root/motd.sh~
+cp /root/issue /etc/issue
+mv /root/issue /etc/issue.net
 rm -rf /etc/profile.d/snipeit.sh
 /bin/clear
 echo ""

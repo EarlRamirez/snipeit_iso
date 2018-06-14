@@ -11,7 +11,9 @@ echo "
                 /_/                                   
                                                       
           Welcome to Snipe-IT Inventory            
-  Snipe-IT can be access from http://$ipaddr     "    
+  Snipe-IT can be access from http://$ipaddr
+
+     "    
                                                       
 
 
