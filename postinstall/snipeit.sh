@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ipaddr="$(ip -o -4 addr show dev eth0 | sed 's/.* inet \([^/]*\).*/\1/')"
+
 echo "Let's change the default credentials for the system users
 root and snipeit, while we are at it, we will change the mariadb root password"
 echo ""
