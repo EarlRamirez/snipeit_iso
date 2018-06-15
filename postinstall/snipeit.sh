@@ -15,10 +15,18 @@ echo "Almost there! Let us conifgure Snipe-IT to send
 email notification, if you wish to perform this
 step at another time run snipeit_mail.setup.sh"
 /usr/local/bin/snipeit_mail.setup.sh
+echo "Final Snipe-IT Configuration"
+cd /var/www/html/snipeit/
+php artisan key:generate --force
+php artisan migrate --force
 echo ""
 echo "  ***Open http://$ipaddr to login to Snipe-IT.***"
 echo ""
 echo "Cleaning up"
+rm -rf /etc/issue
+rm -rf /etc/issue.net
+cp /root/issue /etc/issue
+mv /root/issue /etc/issue.net
 rm -rf /etc/profile.d/snipeit.sh
 echo "* Finished!"
 sleep 1

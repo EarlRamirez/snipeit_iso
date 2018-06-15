@@ -97,21 +97,21 @@ installsnipeit () {
     (crontab -l ; echo "* * * * * /usr/bin/php $webdir/$name/artisan schedule:run >> /dev/null 2>&1") | crontab -
 }
 
-isinstalled () {
-    if yum list installed "$@" >/dev/null 2>&1; then
-        true
-    else
-        false
-    fi
-}
+#isinstalled () {
+#    if yum list installed "$@" >/dev/null 2>&1; then
+#        true
+#    else
+#        false
+#    fi
+#}
 
-isdnfinstalled () {
-    if dnf list installed "$@" >/dev/null 2>&1; then
-        true
-    else
-        false
-    fi
-}
+#isdnfinstalled () {
+#    if dnf list installed "$@" >/dev/null 2>&1; then
+#        true
+#    else
+#        false
+#    fi
+#}
 
 if [ -f /etc/os-release ]; then
     distro="$(. /etc/os-release && echo $ID)"
@@ -230,11 +230,10 @@ echo ""
         echo "Unsupported CentOS version. Version found: $version"
         exit 1
     fi
-
 echo ""
 echo "Final Snipe-IT Configuration"
-php artisan key:generate --force
-php artisan migrate --force
+log "php artisan key:generate --force"
+log "php artisan migrate --force"
 echo ""
 echo "* Cleaning up..."
 rm -rf /root/snipeit.sh
@@ -244,12 +243,10 @@ rm -rf /root/pre_issue~
 rm -rf /root/mariadb_pass_change.sh*
 rm -rf /root/snipe_alias*
 rm -rf /root/snipeit_mail_setup.sh
-rm -rf /etc/issue
-rm -rf /etc/issue.net
+
 mv /root/motd.sh /etc/profile.d/motd.sh
 rm -rf /root/motd.sh~
-cp /root/issue /etc/issue
-mv /root/issue /etc/issue.net
+
 rm -rf /root/rc.local
 rm -rf /etc/rc.d/rc.local
 mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
