@@ -1,12 +1,12 @@
 ## Snipe-IT Custom ISO
 
-Snipe-IT [Snipe-IT](https://snipeitapp.com/) is the best open source web-based inventory system that I have ever used. 
+[Snipe-IT](https://snipeitapp.com/) is the best open source web-based inventory system that I have ever used. 
 
-Spending some time on [gitter](https://gitter.im/snipe/snipe-it), it was observed that most of the new comers run into a few challenges when trying to get up and running with Snipe-IT
+Spending some time on [gitter](https://gitter.im/snipe/snipe-it) and [github](https://github.com/snipe/snipe-it/issues), it was observed that most of the newcomers run into a few challenges when trying to get up and running with Snipe-IT
 
 The goal of this project is to eliminate or limit this challenge by creating a customised ISO where Snipe-IT will be installed without the user having to get their hands dirty.
 
-However, if you don't want the hassel of updates, upgrades and faster turnover to your issues, it is highly recommended that you use the [hosted](https://snipeitapp.com/hosting) option provided by Snipe-IT
+However, if you don't want the hassel of updates, upgrades and will like faster turnover to your issues, it is highly recommended that you use the [hosted](https://snipeitapp.com/hosting) option provided by Snipe-IT
 
 -------
 ### Project Goal
@@ -22,7 +22,6 @@ The installation uses kickstart to automate the OS installation and run the snip
 This custom ISO is based on CentOS 7 and includes both EPEL and IUS repository; therefore, upgrading the OS and Snipe-IT will be achieved by using the following commands.
 
 **yum -y upgrade**
-
 **cd /var/www/html/snipeit/ && sudo -u apache php upgrade.php**
 
 -------
