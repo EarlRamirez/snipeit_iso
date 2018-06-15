@@ -20,7 +20,9 @@ The installation uses kickstart to automate the OS installation and run the snip
 ### Linux Distribution Used
 
 This custom ISO is based on CentOS 7 and includes both EPEL and IUS repository; therefore, upgrading the OS and Snipe-IT will be achieved by using the following commands.
+
 **yum -y upgrade**
+
 **cd /var/www/html/snipeit/ && sudo -u apache php upgrade.php**
 
 -------
