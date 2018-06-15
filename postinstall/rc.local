@@ -218,8 +218,10 @@ echo ""
         if [ "$(getenforce)" == "Enforcing" ]; then
             echo "* Configuring SELinux."
             #Sets SELinux context type so that scripts running in the web server process are allowed read/write access
-            semanage fcontext -a -t httpd_sys_rw_content_t "$webdir/$name(/.*)?"
-	        restorecon -R $webdir/$name
+			semanage fcontext -a -t httpd_sys_content_t "$webdir/$name(/.*)?"
+			restorecon -R $webdir/$name
+            semanage fcontext -a -t httpd_sys_rw_content_t "$webdir/$name/storage(/.*)?"
+	        restorecon -R $webdir/$name/storage
         fi
 
         echo "* Setting Apache httpd to start on boot and starting service."
