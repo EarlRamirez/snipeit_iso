@@ -243,10 +243,8 @@ rm -rf /root/pre_issue~
 rm -rf /root/mariadb_pass_change.sh*
 rm -rf /root/snipe_alias*
 rm -rf /root/snipeit_mail_setup.sh
-
-mv /root/motd.sh /etc/profile.d/motd.sh
+rm -rf /root/motd.sh*
 rm -rf /root/motd.sh~
-
 rm -rf /root/rc.local
 rm -rf /etc/rc.d/rc.local
 mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
