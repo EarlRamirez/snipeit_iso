@@ -19,6 +19,10 @@ email notification, if you wish to perform this
 step at another time run snipeit_mail.setup.sh"
 /usr/local/bin/snipeit_mail.setup.sh
 echo "Final Snipe-IT Configuration"
+# Added key generation and DB migration here
+# because with systemd, there is no order and
+# the DB is getting started after the script
+# is executed
 cd /var/www/html/snipeit/
 php artisan key:generate --force
 php artisan migrate --force

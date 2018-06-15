@@ -97,21 +97,6 @@ installsnipeit () {
     (crontab -l ; echo "* * * * * /usr/bin/php $webdir/$name/artisan schedule:run >> /dev/null 2>&1") | crontab -
 }
 
-#isinstalled () {
-#    if yum list installed "$@" >/dev/null 2>&1; then
-#        true
-#    else
-#        false
-#    fi
-#}
-
-#isdnfinstalled () {
-#    if dnf list installed "$@" >/dev/null 2>&1; then
-#        true
-#    else
-#        false
-#    fi
-#}
 
 if [ -f /etc/os-release ]; then
     distro="$(. /etc/os-release && echo $ID)"
@@ -219,9 +204,9 @@ echo ""
             echo "* Configuring SELinux."
             #Sets SELinux context type so that scripts running in the web server process are allowed read/write access
 			semanage fcontext -a -t httpd_sys_content_t "$webdir/$name(/.*)?"
-			restorecon -R $webdir/$name
+			restorecon -Rv $webdir/$name
             semanage fcontext -a -t httpd_sys_rw_content_t "$webdir/$name/storage(/.*)?"
-	        restorecon -R $webdir/$name/storage
+	        restorecon -Rv $webdir/$name/storage
         fi
 
         echo "* Setting Apache httpd to start on boot and starting service."
@@ -233,9 +218,6 @@ echo ""
         exit 1
     fi
 echo ""
-echo "Final Snipe-IT Configuration"
-log "php artisan key:generate --force"
-log "php artisan migrate --force"
 echo ""
 echo "* Cleaning up..."
 rm -rf /root/snipeit.sh
