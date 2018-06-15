@@ -25,13 +25,13 @@ echo ""
 echo "Cleaning up"
 rm -rf /etc/issue
 rm -rf /etc/issue.net
-rm -rf /root/issue*
 rm -rf /root/rc.local*
 cp /root/issue /etc/issue
 mv /root/issue /etc/issue.net
 rm -rf /etc/profile.d/snipeit.sh
 systemctl stop rc-local
 systemctl disable rc-local
+shutdown -h +1
 echo "* Finished!"
 sleep 1
 
