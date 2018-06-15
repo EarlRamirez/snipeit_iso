@@ -31,7 +31,6 @@ mv /root/issue /etc/issue.net
 rm -rf /etc/profile.d/snipeit.sh
 systemctl stop rc-local
 systemctl disable rc-local
-shutdown -h +1
-echo "* Finished!"
+shutdown -r +1
 sleep 1
 
