@@ -32,4 +32,8 @@ A few changes were made from the standard behaviour from a vanilla CentOS, these
 
 The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-1.iso)
 
-
+-------
+### TODO
+- Script SSL certification
+- Resolve [CVE-2008-5161](https://nvd.nist.gov/vuln/detail/CVE-2008-5161)
+- Add ServerSignature Off and ServerTokens Prod to httpd.conf
