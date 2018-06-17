@@ -210,14 +210,12 @@ echo ""
         fi
 
         echo "* Setting Apache httpd to start on boot and starting service."
-        #log "systemctl enable httpd.service"
         log "systemctl restart httpd.service"
 
     else
         echo "Unsupported CentOS version. Version found: $version"
         exit 1
     fi
-echo ""
 echo ""
 echo "* Cleaning up..."
 rm -rf /root/snipeit.sh
