@@ -15,8 +15,10 @@ If you don't want the hassel of updates, upgrades and will like faster turnover 
 #### Configure an unattended installation of Snipe-IT using CentOS
 The installation uses kickstart to automate the OS installation and run the snipeit.sh script. It also contains snipeit directory with all composer necessary downloads. After the OS installation, you will be forced to change all default credentials root, snipeit and mariaDB root password. The  app key will be generated, database will be migrated and you will then get the option to configure email notification or it can be done after by executing */usr/sbin/local/snipeit_mail_setup.sh*
 This ensures that you are up and running with Snipe-IT without an internet connection
-#### Create customise scripts and aliases to perform Snipe-IT task
-#### Make the OS menu driven for OS and Snipe-IT administration
+
+#### Make the OS menu driven
+- Create a menu which will be activated after the user logs on
+- Split the menu in two parts basic OS administration with option to go to the shell and to manager Snipe-IT
 
 ------- 
 ### Linux Distribution Used
@@ -33,6 +35,15 @@ A few changes were made from the standard behaviour from a vanilla CentOS, these
 ### Download OS
 
 The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-1.iso)
+
+--------
+### Installation
+There is not much required to get up and running; however, there is one important thing that needs to be mentioned.
+After default credentials are reset, the app key (_php artisan key:generate --force_) will be generated, additionally, the database will migrate (_php artisan migrate --force_). These are required for Snipe-IT;
+therefore, do not cancel this script for a few reasons
+- These important processes will not take place
+- You will be prompt each time to change the OS credentials (root and snipeit) and MariaDB root password.
+
 
 -------
 ### TODO

@@ -42,7 +42,6 @@ rm -rf /etc/profile.d/snipeit.sh
 systemctl stop rc-local
 systemctl disable rc-local
 echo ""
-echo "$HOST will reboot in 60 seconds"
 echo "rebooting....."
 shutdown -r +1
 sleep 1
