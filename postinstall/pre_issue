@@ -2,15 +2,13 @@
     Welcome to Snipe-IT Inventory, please login with 
 	the below credentials to complete the installation.                               
                                                     
-        username: root                              
-        password: snipe_Snipe-IT                    
+        	username: root                              
+        	password: snipe_Snipe-IT                    
                                                     
-  Point your browser to http://\4{eth0}            
-  to complete the prefight test and start enjoying Snipe-IT
-  
-  Welcome to Snipe-IT Inventory Installer!
+   You will be prompt to change the default credentials
+   and configure email notification; however, you can 
+   chose to configure email notification at any other
+   time.
+         
   Many thanks to @snipe (mastermind behind Snipe-IT)
   Mike Tucker (creator of this script) and the Snipe-IT community
-
-                                                    
-
