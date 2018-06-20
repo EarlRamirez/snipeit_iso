@@ -13,6 +13,7 @@ echo ""
 echo ""
 echo "Changing mariaDB root password..."
 /usr/local/bin/mariadb_pass_change.sh
+clear
 echo ""
 echo "Almost there! Let us conifgure Snipe-IT to send
 email notification, if you wish to perform this
