@@ -50,7 +50,7 @@ setvhcentos () {
         echo "    <Directory $webdir/$name/public>"
         echo "        Allow From All"
         echo "        AllowOverride All"
-        echo "        Options +Indexes"
+        echo "        Options -Indexes"
         echo "   </Directory>"
         echo "    DocumentRoot $webdir/$name/public"
         echo "    ServerName $fqdn"
