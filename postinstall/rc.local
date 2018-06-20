@@ -207,6 +207,8 @@ echo ""
 			restorecon -Rv $webdir/$name
             semanage fcontext -a -t httpd_sys_rw_content_t "$webdir/$name/storage(/.*)?"
 	        restorecon -Rv $webdir/$name/storage
+			semanage fcontext -a -t httpd_sys_rw_content_t "$webdir/$name/public(/.*)?"
+	        restorecon -Rv $webdir/$name/public
         fi
 
         echo "* Setting Apache httpd to start on boot and starting service."
