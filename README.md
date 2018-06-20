@@ -27,7 +27,7 @@ This custom ISO is based on CentOS 7.5, Snipe-IT v4.4-1 and includes both EPEL a
 - yum -y upgrade
 - cd /var/www/html/snipeit/ && sudo -u apache php upgrade.php
 
-To minimise the size of the OS, only the required packages were used (386) and programming languages _Perl_ and _Python_ is included.
+To minimise the size of the OS, only the required [packages](https://github.com/EarlRamirez/snipeit_iso/blob/master/included_packages.txt) were used (386) and programming languages _Perl_ and _Python_ is included.
 
 A few changes were made from the standard behaviour from a vanilla CentOS, these are, changes in firewalld default zone from public to drop, restricting root access via ssh and SSH sessions automatically times out after 15 minutes of being inactive
 
