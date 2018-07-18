@@ -13,12 +13,12 @@ If you don't want the hassel of updates, upgrades and will like faster turnover 
 ### Project Goal
 
 #### Configure an unattended installation of Snipe-IT using CentOS
-The installation uses kickstart to automate the OS installation and run the snipeit.sh script. It also contains snipeit directory with all composer necessary downloads. After the OS installation, you will be forced to change all default credentials root, snipeit and mariaDB root password. The  app key will be generated, database will be migrated and you will then get the option to configure email notification or it can be done after by executing */usr/sbin/local/snipeit_mail_setup.sh*
-This ensures that you are up and running with Snipe-IT without an internet connection
+The installation uses kickstart to automate the OS installation and run a modified version of snipeit.sh script. It also contains snipeit directory with all composer necessary downloads. After the OS installation, you will be forced to change all default credentials root, snipeit and mariaDB root password. The _APP_ key will be generated, database will be migrated and you will then get the option to configure email notification, if you do not wish to configure email notification at this time, it can be done at anytime by executing */usr/sbin/local/snipeit_mail_setup.sh* from the shell.
+This ensures that you can have Snipe-IT functional without an internet connection
 
 #### Make the OS menu driven
 - Create a menu which will be activated after the user logs on
-- Split the menu in two parts basic OS administration with option to go to the shell and to manager Snipe-IT
+- Split the menu in two parts, first part will consists of basic OS administration with option to go to the shell and the second part will help you to manage Snipe-IT, e.g. upgrades, clearing the cache, toggling debugging, etc.
 
 ------- 
 ### CentOS and Snipe-IT Version
@@ -27,27 +27,35 @@ This custom ISO is based on CentOS 7.5, Snipe-IT v4.4-1 and includes both EPEL a
 - yum -y upgrade
 - cd /var/www/html/snipeit/ && sudo -u apache php upgrade.php
 
-To minimise the size of the OS, only the required [packages](https://github.com/EarlRamirez/snipeit_iso/blob/master/included_packages.txt) were used (386) and programming languages _Perl_ and _Python_ is included.
+To minimise the size of the OS, only the required [packages](https://github.com/EarlRamirez/snipeit_iso/blob/master/included_packages.txt) were used, additional packages _Perl_ and _Python_ are included.
 
-A few changes were made from the standard behaviour from a vanilla CentOS, these are, changes in firewalld default zone from public to drop, restricting root access via ssh and SSH sessions automatically times out after 15 minutes of being inactive
+Additionally, a few changes were made from the standard behaviour from a vanilla CentOS, these are
+- Changes in firewalld default zone from public to drop
+- Restricting root access via ssh
+- SSH sessions automatically times out after 15 minutes of being inactive
+- Disable unused filesystems
+- Disable uncommon protocols
+- Harden SSH
+- Enforce password policy
+
 
 -------
 ### Download OS
 
 The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-1.iso)
 
+
 --------
 ### Installation
-There is not much required to get up and running; however, there is one important thing that needs to be mentioned.
-After default credentials are reset, the app key (_php artisan key:generate --force_) will be generated, additionally, the database will migrate (_php artisan migrate --force_). These are required for Snipe-IT;
+Once you have downloaded the ISO mount it to your favourite virtualisation tool, e.g. Vmware, KVM, Virtual Box, etc.
+
+The OS will be installed and configured for you, the server will reboot and perform a few post installation steps, when you are at the login prompt, you will receive the default creadentials, after you have successfully
+authenticated, the final script will be executed, this script will ensure that you change the default credentials
+
+
+When default credentials are reset, the _APP_ key (_php artisan key:generate --force_) will be generated, additionally, the database will be migrated (_php artisan migrate --force_). These are required for Snipe-IT;
 therefore, do not cancel this script for a few reasons
 - These important processes will not take place
 - You will be prompt each time to change the OS credentials (root and snipeit) and MariaDB root password.
 
 
--------
-### TODO
-- Script SSL certification
-- Harden SSH
-- Harden the web server
-- Harden the OS
