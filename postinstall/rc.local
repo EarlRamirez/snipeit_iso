@@ -231,7 +231,8 @@ rm -rf /root/motd.sh*
 rm -rf /root/motd.sh~
 rm -rf /root/rc.local
 rm -rf /etc/rc.d/rc.local
-rm -rf /root/etc/snipe_upgrade.sh
+rm -rf /root/snipe_upgrade.sh*
+rm -rf /root/snipe*
 mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
 echo "* Finished!"
 sleep 1
