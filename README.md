@@ -21,11 +21,17 @@ This ensures that you can have Snipe-IT functional without an internet connectio
 - Split the menu in two parts, first part will consists of basic OS administration with option to go to the shell and the second part will help you to manage Snipe-IT, e.g. upgrades, clearing the cache, toggling debugging, etc.
 
 ------- 
-### CentOS and Snipe-IT Version
+### OS and software versions
 
-This custom ISO is based on CentOS 7.5, Snipe-IT v4.4-1 and includes both EPEL and IUS repository; therefore, upgrading the OS and Snipe-IT will be achieved by using the following commands.
+The version of OS and software are.
+- CentOS 7.5
+- PHP 7.2
+- Snipe-IT 4.6.3
+
+This custom ISO includes both EPEL and IUS repository; therefore, upgrading the OS and Snipe-IT will be achieved by using the following commands.
 - yum -y upgrade
 - cd /var/www/html/snipeit/ && sudo -u apache php upgrade.php
+
 
 To minimise the size of the OS, only the required [packages](https://github.com/EarlRamirez/snipeit_iso/blob/master/included_packages.txt) were used, additional packages _Perl_ and _Python_ are included.
 
