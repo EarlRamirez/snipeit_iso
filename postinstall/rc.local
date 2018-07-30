@@ -50,7 +50,7 @@ setvhcentos () {
         echo "    <Directory $webdir/$name/public>"
         echo "        Allow From All"
         echo "        AllowOverride All"
-        echo "        Options +Indexes"
+        echo "        Options -Indexes"
         echo "   </Directory>"
         echo "    DocumentRoot $webdir/$name/public"
         echo "    ServerName $fqdn"
@@ -207,6 +207,8 @@ echo ""
 			restorecon -Rv $webdir/$name
             semanage fcontext -a -t httpd_sys_rw_content_t "$webdir/$name/storage(/.*)?"
 	        restorecon -Rv $webdir/$name/storage
+			semanage fcontext -a -t httpd_sys_rw_content_t "$webdir/$name/public(/.*)?"
+	        restorecon -Rv $webdir/$name/public
         fi
 
         echo "* Setting Apache httpd to start on boot and starting service."
@@ -229,6 +231,8 @@ rm -rf /root/motd.sh*
 rm -rf /root/motd.sh~
 rm -rf /root/rc.local
 rm -rf /etc/rc.d/rc.local
+rm -rf /root/snipe_upgrade.sh*
+rm -rf /root/snipe*
 mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
 echo "* Finished!"
 sleep 1

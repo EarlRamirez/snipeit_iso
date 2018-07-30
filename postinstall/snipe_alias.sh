@@ -7,3 +7,4 @@ clear_cache="snipephp artisan cache:clear"
 snipe_upgrade="snipephp upgrade.php"
 snipe_backup="snipephp artisan snipeit:backup"
 snipe_migrate="snipephp artisan migrate"
+
