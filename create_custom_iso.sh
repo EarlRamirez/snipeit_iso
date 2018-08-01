@@ -5,7 +5,7 @@
 genisoimage -untranslated-filenames \
 -V "CentOS 7 x86_64" \
 -A "CentOS 7 x86_64" \
--o Snipe-IT_x86_64-2-1.iso \
+-o Snipe-IT_x86_64-2-2.iso \
 -joliet-long \
 -b isolinux/isolinux.bin \
 -c isolinux/boot.cat \
