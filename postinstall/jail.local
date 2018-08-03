@@ -1,0 +1,41 @@
+[DEFAULT]
+ignoreip = 127.0.0.1 
+bantime = 1800
+findtime = 600
+maxretry = 3
+backend = systemd
+
+[ssh-iptables]
+enabled = true
+filter = sshd
+action = iptables-multiport[name=SSH, protocol=tcp, port=ssh]
+logpath = /var/log/secure
+
+[apache-tcpwrapper]
+enabled = true
+filter = apache-auth
+action = iptables-multiport[name=apache-auth, protocol=tcp, port=http]
+logpath = /var/log/httpd/error_log
+
+
+[apache-badbots]
+enabled = true
+filter = apache-badbots
+action = iptables-multiport[name=BadBots, protocol=tcp, port="http,https"]
+logpath = /var/log/httpd/*access_log
+
+[recidive]
+# recidivist.
+#
+#  Noun: A convicted criminal who reoffends, especially repeatedly.
+#
+enabled  = true
+filter   = recidive
+logpath  = /var/log/fail2ban.log*
+action   = iptables-allports[name=recidive, protocol=all]
+bantime  = 604800  ; 1 week
+findtime = 86400   ; 1 day
+maxretry = 6
+
+
+
