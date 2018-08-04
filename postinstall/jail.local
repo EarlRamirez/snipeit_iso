@@ -8,6 +8,7 @@ backend = systemd
 [sshd]
 enabled = true
 port    = ssh
+filter = sshd
 action = firewallcmd-rich-rules
 logpath = %(sshd_log)s
 backend = %(sshd_backend)s
