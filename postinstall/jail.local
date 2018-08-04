@@ -5,23 +5,26 @@ findtime = 600
 maxretry = 3
 backend = systemd
 
-[ssh-iptables]
+[sshd]
 enabled = true
-filter = sshd
-action = iptables-multiport[name=SSH, protocol=tcp, port=ssh]
-logpath = /var/log/secure
+port    = ssh
+action = firewallcmd-rich-rules
+logpath = %(sshd_log)s
+backend = %(sshd_backend)s
+maxretry = 3
+bandtime = 86400
 
 [apache-tcpwrapper]
 enabled = true
 filter = apache-auth
-action = iptables-multiport[name=apache-auth, protocol=tcp, port=http]
+action = firewallcmd-multiport[name=apache-auth, protocol=tcp, port=http]
 logpath = /var/log/httpd/error_log
 
 
 [apache-badbots]
 enabled = true
 filter = apache-badbots
-action = iptables-multiport[name=BadBots, protocol=tcp, port="http,https"]
+action = firewallcmd-multiport[name=BadBots, protocol=tcp, port="http,https"]
 logpath = /var/log/httpd/*access_log
 
 [recidive]
@@ -32,7 +35,7 @@ logpath = /var/log/httpd/*access_log
 enabled  = true
 filter   = recidive
 logpath  = /var/log/fail2ban.log*
-action   = iptables-allports[name=recidive, protocol=all]
+action   = firewallcmd-allports[name=recidive, protocol=all]
 bantime  = 604800  ; 1 week
 findtime = 86400   ; 1 day
 maxretry = 6
