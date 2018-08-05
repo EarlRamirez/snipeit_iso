@@ -1,5 +1,5 @@
 ## Contributing to the Project
-If you will like to contribute to this project or any other projects on Github you use this guidelines
+If you will like to contribute to this project or any other projects on Github you can use this guidelines
 
 ### Preparing your environment
 
@@ -24,14 +24,15 @@ Moify ISO config and update repodate
 _append initrd=initrd.img inst.repo=cdrom ks=cdrom:/ks.cfg net.ifnames=0 biosdevname=0_
 - createrepo -g ~/workspace/repodata/*comps.xml . --update
 
-Create your workspace and clone the _dev_ branch into your workspace, due to the size of the directories I had to
+#### Cloning Repository
+Navigate to your workspace and clone the _dev_ branch into your workspace, due to the size of the many directories I had to
 exclude them from Github.
 
 - mkdir ~/workspace
 - cd ~/workspace
 - git clone -b dev https://github.com/EarlRamirez/snipeit_iso.git
 
-
+#### Creating Branch and Submitting Pull Request (PR)
 Navigate to git repository and create the branch, as a rule of thumb you will create the branch based on what you 
 intend to fix, e.g. update_selinux_labels
 - cd ~/workspace/snipeit_iso
@@ -41,5 +42,7 @@ intend to fix, e.g. update_selinux_labels
 Make your desired changes, commit and push the branch to your fork so that you can create the pull request.
 - git commit -am "Updated SELinux Labels"
 - git push origin update_selinux_label
+
+#### Updating Your Fork
 
 

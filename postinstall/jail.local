@@ -2,30 +2,29 @@
 ignoreip = 127.0.0.1 
 bantime = 1800
 findtime = 600
-maxretry = 3
+maxretry = 8
 backend = systemd
 
 [sshd]
 enabled = true
 port    = ssh
 filter = sshd
-action = firewallcmd-rich-rules
+action = firewallcmd-ipset
 logpath = %(sshd_log)s
 backend = %(sshd_backend)s
-maxretry = 3
-bandtime = 86400
+
 
 [apache-tcpwrapper]
 enabled = true
 filter = apache-auth
-action = firewallcmd-multiport[name=apache-auth, protocol=tcp, port=http]
+action = firewallcmd-ipset
 logpath = /var/log/httpd/error_log
 
 
 [apache-badbots]
 enabled = true
 filter = apache-badbots
-action = firewallcmd-multiport[name=BadBots, protocol=tcp, port="http,https"]
+action = firewallcmd-ipset
 logpath = /var/log/httpd/*access_log
 
 [recidive]
@@ -40,6 +39,4 @@ action   = firewallcmd-allports[name=recidive, protocol=all]
 bantime  = 604800  ; 1 week
 findtime = 86400   ; 1 day
 maxretry = 6
-
-
 
