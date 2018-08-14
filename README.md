@@ -48,7 +48,7 @@ Additionally, a few changes were made from the standard behaviour from a vanilla
 -------
 ### Download OS
 
-The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-1.iso)
+The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-3.iso)
 
 
 --------
