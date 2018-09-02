@@ -219,6 +219,12 @@ echo ""
         exit 1
     fi
 echo ""
+# Disable ctrl-alt-del
+systemctl mask ctrl-alt-del.target
+
+# Remove unnecessary firmware
+yum remove alsa-* ivtv-* iwl*firmware aic94xx-firmware
+
 echo "* Cleaning up..."
 rm -rf /root/snipeit.sh
 rm -rf /root/snipeit.sh~
