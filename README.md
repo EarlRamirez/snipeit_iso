@@ -64,4 +64,16 @@ therefore, do not cancel this script for a few reasons
 - These important processes will not take place
 - You will be prompt each time to change the OS credentials (root and snipeit) and MariaDB root password.
 
+---------
+### Troubleshooting
+During the initial relase of this custom ISO, the _.env.sample_ was modified to remove duplicate **BACKUP_ENV**
+this was later updated by upstream. Since upstream pushes this via Git upgrade will fail; therefore you will need to do the following.
+- git stash
+- sudo -u apache php upgrade.php
+If you are unable to stash that change, you will need to tell Git who you are; therefore, you will need to use the following commands.
+- git config user.email <an_email_address>
+- git config user.name <a_user_name>
+Then try stashing the changes and you will be able to perform the upgrade.
+
+This issue was resolved on 2 September; therefore, all downloads after this date will not experience this issue.
 
