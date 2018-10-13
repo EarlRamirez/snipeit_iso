@@ -73,7 +73,7 @@ installsnipeit () {
     log "git clone https://github.com/snipe/snipe-it $webdir/$name"
 
     echo "* Configuring .env file."
-    cp "$webdir/$name/.env.example" "$webdir/$name/.env"
+    #cp "$webdir/$name/.env" "$webdir/$name/.env"
 
     sed -i '1 i\#Created By Snipe-it Installer' "$webdir/$name/.env"
     sed -i 's,^\(APP_TIMEZONE=\).*,\1'$tzone',' "$webdir/$name/.env"
