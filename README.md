@@ -26,7 +26,7 @@ This ensures that you can have Snipe-IT functional without an internet connectio
 The version of OS and software are.
 - CentOS 7.5
 - PHP 7.2
-- Snipe-IT 4.4.1
+- Snipe-IT 4.6.5
 
 This custom ISO includes both EPEL and IUS repository; therefore, upgrading the OS and Snipe-IT will be achieved by using the following commands.
 - yum -y upgrade
@@ -48,7 +48,7 @@ Additionally, a few changes were made from the standard behaviour from a vanilla
 -------
 ### Download OS
 
-The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-3.iso)
+The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-5.iso)
 
 
 --------
