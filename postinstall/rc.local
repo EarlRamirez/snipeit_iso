@@ -66,6 +66,9 @@ setvhcentos () {
         echo "    ServerName $fqdn"
         echo "        ErrorLog /var/log/httpd/snipeIT.error.log"
         echo "        CustomLog /var/log/httpd/access.log combined"
+        echo "    SSLEngine on"
+        echo "    SSLCertificateFile /etc/pki/tls/certs/snipeit-selfsigned.crt"
+        echo "    SSLCertificateKeyFile /etc/pki/tls/private/snipeit-selfsigned.key"
         echo "</VirtualHost>"
     } >> "$apachefile"
 }
@@ -223,12 +226,12 @@ echo ""
 
 		# Create Diffie-Hellman group
 		echo "Generate DH Parameters"
-		openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+		openssl dhparam -out /etc/pki/tls/certs/dhparam.pem 2048
 		echo ""
 
 		# Append SSLOpenSSLConfCmd to the certificate
 		echo "Appening DH Parameters to Certificate"
-		cat /etc/ssl/certs/dhparam.pem | sudo tee -a /etc/ssl/certs/snipeit-selfsigned.crt
+		cat /etc/pki/tls/certs/dhparam.pem | sudo tee -a /etc/pki/tls/certs/snipeit-selfsigned.crt
 		echo ""
 
         #TODO make sure the apachefile doesnt exist isnt already in there
