@@ -270,21 +270,22 @@ systemctl mask ctrl-alt-del.target
 yum remove alsa-* ivtv-* iwl*firmware aic94xx-firmware
 
 echo "* Cleaning up..."
-rm -rf /root/snipeit.sh
-rm -rf /root/snipeit.sh~
+#rm -rf /root/snipeit.sh
+#rm -rf /root/snipeit.sh~
 rm -rf /root/pre_issue
 rm -rf /root/pre_issue~
 rm -rf /root/mariadb_pass_change.sh*
-rm -rf /root/snipe_alias*
-rm -rf /root/snipeit_mail_setup.sh
+#rm -rf /root/snipe_alias*
+#rm -rf /root/snipeit_mail_setup.sh
 rm -rf /root/motd.sh*
 rm -rf /root/motd.sh~
 rm -rf /root/rc.local
 rm -rf /etc/rc.d/rc.local
-rm -rf /root/snipe_upgrade.sh*
+#rm -rf /root/snipe_upgrade.sh*
 rm -rf /root/snipe*
 rm -rf /root/fail2ban*
 rm -rf /root/jail*
+rm -rf /root/create_self-signed_certificate.sh
 mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
 echo "* Finished!"
 sleep 1
