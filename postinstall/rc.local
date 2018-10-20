@@ -267,7 +267,7 @@ echo ""
 systemctl mask ctrl-alt-del.target
 
 # Remove unnecessary firmware
-yum remove alsa-* ivtv-* iwl*firmware aic94xx-firmware
+yum --disablerepo=\* remove alsa-* ivtv-* iwl*firmware aic94xx-firmware -y
 
 echo "* Cleaning up..."
 #rm -rf /root/snipeit.sh
