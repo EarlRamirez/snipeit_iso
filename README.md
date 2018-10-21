@@ -78,7 +78,6 @@ If you are unable to stash that change, you will need to tell Git who you are; t
 Then try stashing the changes and you will be able to perform the upgrade.
 This issue was resolved on 2 September; therefore, all downloads after this date will not experience this issue.
 
----------
 #### Tips
 There are a few aliases for the _snipeit_ user, you **must** be in the snipeit root directory _/var/www/html/snipeit/_. These 
 aliases are.
