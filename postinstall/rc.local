@@ -272,15 +272,11 @@ echo ""
 # Disable ctrl-alt-del
 systemctl mask ctrl-alt-del.target
 
-# Remove unnecessary firmware
-yum --disablerepo=\* remove alsa-* ivtv-* iwl*firmware aic94xx-firmware -y
-
+# Remove all installation scripts
 echo "* Cleaning up..."
-rm -rf /root/pre_issue
-rm -rf /root/pre_issue~
+rm -rf /root/pre_issue*
 rm -rf /root/mariadb_pass_change.sh*
 rm -rf /root/motd.sh*
-rm -rf /root/motd.sh~
 rm -rf /root/rc.local
 rm -rf /etc/rc.d/rc.local
 rm -rf /root/snipe*
