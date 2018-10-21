@@ -9,9 +9,9 @@ fi
 # export SYSTEMD_PAGER=
 
 # User specific aliases and functions
-clear_config="sudo -u apache php artisan config:clear"
-clear_cache="sudo -u apache php artisan cache:clear"
-snipe_upgrade="sudo -u apache php upgrade.php"
-snipe_backup="sudo -u apache php artisan snipeit:backup"
-snipe_migrate="sudo -u apache php artisan migrate"
+alias clear_config="sudo -u apache php artisan config:clear"
+alias clear_cache="sudo -u apache php artisan cache:clear"
+alias snipe_upgrade="sudo -u apache php upgrade.php"
+alias snipe_backup="sudo -u apache php artisan snipeit:backup"
+alias snipe_migrate="sudo -u apache php artisan migrate"
 

@@ -42,7 +42,7 @@ STATE=Florida
 LOCALITY=Miami
 ORGANISATION=Inventory
 ORGANISATION_UNIT=AssetManagement
-COMMON_NAME=snipeit
+COMMON_NAME=snipe-it
 EMAIL=snipeit@localdomain.com
 GEN_CERT="openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -keyout /etc/pki/tls/private/snipeit-selfsigned.key -out /etc/pki/tls/certs/snipeit-selfsigned.crt"
 
@@ -97,7 +97,7 @@ installsnipeit () {
     sed -i 's,^\(DB_DATABASE=\).*,\1'snipeit',' "$webdir/$name/.env"
     sed -i 's,^\(DB_USERNAME=\).*,\1'snipeit',' "$webdir/$name/.env"
     sed -i 's,^\(DB_PASSWORD=\).*,\1'$mysqluserpw',' "$webdir/$name/.env"
-    sed -i 's,^\(APP_URL=\).*,\1'http://$ipaddr',' "$webdir/$name/.env"
+    sed -i 's,^\(APP_URL=\).*,\1'https://$ipaddr',' "$webdir/$name/.env"
 
     echo "* Installing and running composer."
     cd "$webdir/$name/"
@@ -272,15 +272,10 @@ echo ""
 # Disable ctrl-alt-del
 systemctl mask ctrl-alt-del.target
 
-# Remove unnecessary firmware
-yum --disablerepo=\* remove alsa-* ivtv-* iwl*firmware aic94xx-firmware -y
-
+# Remove all installation scripts
 echo "* Cleaning up..."
-rm -rf /root/pre_issue
-rm -rf /root/pre_issue~
+rm -rf /root/pre_issue*
 rm -rf /root/mariadb_pass_change.sh*
-rm -rf /root/motd.sh*
-rm -rf /root/motd.sh~
 rm -rf /root/rc.local
 rm -rf /etc/rc.d/rc.local
 rm -rf /root/snipe*
