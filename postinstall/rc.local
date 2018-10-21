@@ -276,7 +276,6 @@ systemctl mask ctrl-alt-del.target
 echo "* Cleaning up..."
 rm -rf /root/pre_issue*
 rm -rf /root/mariadb_pass_change.sh*
-rm -rf /root/motd.sh*
 rm -rf /root/rc.local
 rm -rf /etc/rc.d/rc.local
 rm -rf /root/snipe*

@@ -30,7 +30,7 @@ php artisan key:generate --force
 php artisan migrate --force
 clear
 echo ""
-echo " Point your browser to http://$ipaddr 
+echo " Point your browser to https://$ipaddr 
 to complete Snipe-IT final set-up to start enjoying Snipe-IT"
 echo ""
 echo "Final clean up"
