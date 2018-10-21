@@ -48,7 +48,7 @@ Additionally, a few changes were made from the standard behaviour from a vanilla
 -------
 ### Download OS
 
-The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-5.iso)
+The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-8.iso)
 
 
 --------
@@ -77,4 +77,9 @@ If you are unable to stash that change, you will need to tell Git who you are; t
 
 Then try stashing the changes and you will be able to perform the upgrade.
 This issue was resolved on 2 September; therefore, all downloads after this date will not experience this issue.
+
+---------------
+### Snipe-IT Custom ISO Release
+Version 2-8
+- Added self-signed SSL certificate 
 

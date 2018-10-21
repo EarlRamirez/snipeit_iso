@@ -55,7 +55,7 @@ spin[3]="/"
 setvhcentos () {
     apachefile=/etc/httpd/conf.d/$name.conf
     {
-        echo "<VirtualHost *:80>"
+        echo "<VirtualHost *:443>"
         echo "ServerAdmin webmaster@localhost"
         echo "    <Directory $webdir/$name/public>"
         echo "        Allow From All"
