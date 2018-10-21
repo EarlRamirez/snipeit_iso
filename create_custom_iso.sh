@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Create custom ISO
-
+ISO=Snipe-IT_x86_64-2-8.iso
 genisoimage -untranslated-filenames \
 -V "CentOS 7 x86_64" \
 -A "CentOS 7 x86_64" \
--o Snipe-IT_x86_64-2-1.iso \
+-o $ISO \
 -joliet-long \
 -b isolinux/isolinux.bin \
 -c isolinux/boot.cat \
@@ -19,7 +19,7 @@ genisoimage -untranslated-filenames \
 sleep 3
 
 # Allow the ISO to boot from USB
-sudo isohybrid Snipe-IT_x86_64-2-1.iso
+sudo isohybrid $ISO
 
 # Permit integrity checking
-sudo implantisomd5 Snipe-IT_x86_64-2-1.iso
+sudo implantisomd5 $ISO

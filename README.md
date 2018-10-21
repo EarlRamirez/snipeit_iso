@@ -26,7 +26,7 @@ This ensures that you can have Snipe-IT functional without an internet connectio
 The version of OS and software are.
 - CentOS 7.5
 - PHP 7.2
-- Snipe-IT 4.6.3
+- Snipe-IT 4.6.5
 
 This custom ISO includes both EPEL and IUS repository; therefore, upgrading the OS and Snipe-IT will be achieved by using the following commands.
 - yum -y upgrade
@@ -48,7 +48,7 @@ Additionally, a few changes were made from the standard behaviour from a vanilla
 -------
 ### Download OS
 
-The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-1.iso)
+The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-8.iso)
 
 
 --------
@@ -64,4 +64,22 @@ therefore, do not cancel this script for a few reasons
 - These important processes will not take place
 - You will be prompt each time to change the OS credentials (root and snipeit) and MariaDB root password.
 
+---------
+### Troubleshooting
+During the initial relase of this custom ISO, the _.env.sample_ was modified to remove duplicate **BACKUP_ENV**
+this was later updated by upstream. Since upstream pushes this via Git, the upgrade will fail; therefore you will need to do the following.
+- git stash
+- sudo -u apache php upgrade.php
+
+If you are unable to stash that change, you will need to tell Git who you are; therefore, you will need to use the following commands.
+- git config user.email an_email_address
+- git config user.name "Your Name"
+
+Then try stashing the changes and you will be able to perform the upgrade.
+This issue was resolved on 2 September; therefore, all downloads after this date will not experience this issue.
+
+---------------
+### Snipe-IT Custom ISO Release
+#### Version 2-8
+- Added self-signed SSL certificate 
 

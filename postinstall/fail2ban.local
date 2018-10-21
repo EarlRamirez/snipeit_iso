@@ -1,0 +1,3 @@
+[Definition]
+logtarget = /var/log/fail2ban.log
+

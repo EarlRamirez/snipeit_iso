@@ -44,6 +44,6 @@ systemctl stop rc-local
 systemctl disable rc-local
 echo ""
 echo "rebooting....."
-shutdown -r +1
+shutdown -r now
 sleep 1
 
