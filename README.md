@@ -80,6 +80,6 @@ This issue was resolved on 2 September; therefore, all downloads after this date
 
 ---------------
 ### Snipe-IT Custom ISO Release
-Version 2-8
+#### Version 2-8
 - Added self-signed SSL certificate 
 
