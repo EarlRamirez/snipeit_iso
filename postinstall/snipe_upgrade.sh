@@ -8,7 +8,7 @@ SNIPE_USER="sudo -u apache"
 if [ -d $SNIPE ] 
 then
 	cd $SNIPE
-	$SNIPE_USER php upgrade.php
+	$SNIPE_USER php upgrade.php >> /dev/null 2>&1
 else
 	echo "$SNIPE cannot be found"
 fi
