@@ -42,12 +42,12 @@ echo ""
 
 # Create Diffie-Hellman group
 echo "Generate DH Parameters"
-openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+openssl dhparam -out /etc/pki/tls/certs/dhparam.pem 2048
 echo ""
 
 # Append SSLOpenSSLConfCmd to the certificate
 echo "Appening DH Parameters to Certificate"
-cat /etc/ssl/certs/dhparam.pem | sudo tee -a /etc/ssl/certs/snipeit-selfsigned.crt
+cat /etc/pki/tls/certs/dhparam.pem | sudo tee -a /etc/pki/tls/certs/snipeit-selfsigned.crt
 echo ""
 
 
