@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create custom ISO
-ISO=Snipe-IT_x86_64-2-8.iso
+ISO=Snipe-IT_x86_64-2-9.iso
 genisoimage -untranslated-filenames \
 -V "CentOS 7 x86_64" \
 -A "CentOS 7 x86_64" \
