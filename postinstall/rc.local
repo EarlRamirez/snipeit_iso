@@ -274,6 +274,9 @@ echo ""
 # Disable ctrl-alt-del
 systemctl mask ctrl-alt-del.target
 
+# Add SSH banner
+#sed -i 's+#Banner none+Banner /etc/issue+g' /etc/ssh/sshd_config
+
 # Remove all installation scripts
 echo "* Cleaning up..."
 rm -rf /root/pre_issue*
