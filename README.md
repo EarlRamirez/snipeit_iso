@@ -48,7 +48,7 @@ Additionally, a few changes were made from the standard behaviour from a vanilla
 -------
 ### Download OS
 
-The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-8.iso)
+The ISO can be downloaded at [Trinipino.org](https://trinipino.org/snipeit/Snipe-IT_x86_64-2-9.iso)
 
 
 --------
@@ -81,6 +81,7 @@ This issue was resolved on 2 September; therefore, all downloads after this date
 #### Tips
 There are a few aliases for the _snipeit_ user, you **must** be in the snipeit root directory _/var/www/html/snipeit/_. These 
 aliases are.
+- snipe_home (change to snipeit home directory)
 - clear_config (clear Snipe-IT config)
 - clear_cache (clear Snipe-IT cache)
 - snipe_backup (create a Snipe-IT backup)
