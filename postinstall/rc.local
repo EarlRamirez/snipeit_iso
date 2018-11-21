@@ -286,6 +286,7 @@ rm -rf /root/snipe*
 rm -rf /root/fail2ban*
 rm -rf /root/jail*
 rm -rf /root/create_self-signed_certificate.*
+rm -rf /root/audit.rule*
 mv /etc/rc.d/rc.local-backup /etc/rc.d/rc.local
 echo "* Finished!"
 sleep 1
