@@ -97,3 +97,5 @@ upgraded weekly simply delete the below script from /etc/cron.weekly/
 #### Version 2-8
 - Added self-signed SSL certificate 
 
+#### Version 2-9
+- Fix bug that was causing error code 500 from Apache 
