@@ -5,7 +5,7 @@ mysql_root_pass="snipe_Snipe-IT"
 
  echo "* Securing MariaDB."
  echo -n " Q. Enter your new MariaDB root password: "
- read -r mysql_root_pw
+ read -rs mysql_root_pw
 	SECURE_MYSQL=$(expect -c "
 	set timeout 10
 	spawn /bin/mysql_secure_installation
