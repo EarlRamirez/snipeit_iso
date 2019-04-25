@@ -275,6 +275,8 @@ echo ""
 # Disable ctrl-alt-del
 systemctl mask ctrl-alt-del.target
 
+# Restrict processes to the owner
+echo "proc    /proc    defaults,hidepid=2    0   0" >> /etc/fstab
 
 # Remove all installation scripts
 echo "* Cleaning up..."
